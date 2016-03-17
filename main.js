@@ -14,5 +14,6 @@ window.onload = function () {
 
 
 var wikimedia = {
-  baseEndpoint: 'https://en.wikipedia.org/w/api.php?action=query&titles=hydrogen&prop=revisions&rvprop=content&format=json'
+  baseStart: 'https://en.wikipedia.org/w/api.php?action=query&titles=',
+  baseEnd: '&prop=revisions&rvprop=content&format=json'
 }
