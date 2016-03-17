@@ -10,7 +10,8 @@ window.onload = function () {
           console.log('success');
           wiki.result = response.query.pages[Object.keys(response.query.pages)[0]];
           wiki.text = wiki.result.revisions[0]['*'];
-          wiki.nodes = getNodes(wiki.text);
+          wiki.nodes = getNodes(/\[\[[\w+ ]*/g, wiki.text);
+          wiki.nodesParens = getNodes(/\[\[[\w+ ]*\([\w+ ]*\)/g, wiki.text);
         }
       });
     } else {
@@ -25,10 +26,8 @@ window.onload = function () {
 
 var wiki = {
   baseStart: 'https://en.wikipedia.org/w/api.php?action=query&titles=',
-  baseEnd: '&prop=revisions&rvprop=content&rvsection=0&format=json',
-  result: undefined
+  baseEnd: '&prop=revisions&rvprop=content&rvsection=0&format=json'
 }
-
 
 
 function validInput(input) {
@@ -39,8 +38,8 @@ function validInput(input) {
   }
 }
 
-function getNodes(text) {
-  var links = text.match(/\[\[\w+/g),
+function getNodes(regExp, text) {
+  var links = text.match(regExp),
       nodes = [];
   for (var i=0; i < links.length; i++){
     nodes[i] = links[i].slice(2);
