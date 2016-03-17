@@ -10,6 +10,7 @@ window.onload = function () {
           console.log('success');
           wiki.result = response.query.pages[Object.keys(response.query.pages)[0]];
           wiki.text = wiki.result.revisions[0]['*'];
+          wiki.nodes = getNodes(wiki.text);
         }
       });
     } else {
@@ -39,5 +40,10 @@ function validInput(input) {
 }
 
 function getNodes(text) {
-
+  var links = text.match(/\[\[\w+/g),
+      nodes = [];
+  for (var i=0; i < links.length; i++){
+    nodes[i] = links[i].slice(2);
+  }
+  return nodes;
 }
