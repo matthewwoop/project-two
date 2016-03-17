@@ -18,16 +18,24 @@ window.onload = function () {
       alert('Please provide an input');
       return;
     }
+    greuler({
+      target: '#hello-world',
+      width: window.innerWidth,
+      height: window.innerHeight,
+      data: {
+        nodes: test.nodes,
+        links: [
+        {source: 'hydrogen', target: 'atom'},
+        ]
+      }
+    }).update();
   });
-}
-
-
-
+};
 
 var wiki = {
   baseStart: 'https://en.wikipedia.org/w/api.php?action=query&titles=',
   baseEnd: '&prop=revisions&rvprop=content&rvsection=0&format=json'
-}
+};
 
 
 function validInput(input) {
@@ -46,3 +54,16 @@ function getNodes(regExp, text) {
   }
   return nodes;
 }
+
+var test = {
+  nodes: [
+    {
+    id: 'hydrogen',
+    r: 25
+    },
+    {
+    id: 'atom',
+    r: 25
+    }
+  ]
+};
