@@ -2,6 +2,11 @@ window.onload = function () {
   console.log('main.js has loaded...');
 
   $('#submit-btn').on('click', function() {
+    if(visual){
+      $('#graph-container').attr('greuler-id', '');
+    }
+    visual = null;
+    $('#graph-container').empty();
     if (validInput($('#user-choice').val())){
       $.ajax({
         url: wiki.baseStart + $('#user-choice').val() + wiki.baseEnd,
@@ -10,8 +15,13 @@ window.onload = function () {
           console.log('successfully requested', $('#user-choice').val());
           createWiki(response);
           populateGraph(wiki.nodes);
-          greuler(graph).update();
+        },
+        fail: function () {
+          console.log('failure');
         }
+      }).done(function() {
+        visual = greuler(graph).update();
+        // visual.update();
       });
     } else {
       alert('Please provide an input');
@@ -37,13 +47,16 @@ function validInput(input) {
 function getNodes(regExp, text) {
   var links = text.match(regExp),
       nodes = [];
-  for (var i=0; i < links.length; i++){
-    nodes[i] = links[i].slice(2);
+  if (links){
+    for (var i=0; i < links.length; i++){
+      nodes[i] = links[i].slice(2);
+    }
   }
   return nodes;
 }
 
 function createWiki(response) {
+  console.log('creating wiki');
   wiki.result = response.query.pages[Object.keys(response.query.pages)[0]];
   wiki.text = wiki.result.revisions[0]['*'];
   wiki.nodes = getNodes(/\[\[[\w+ ]*/g, wiki.text);

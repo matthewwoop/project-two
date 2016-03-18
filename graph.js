@@ -2,19 +2,25 @@ var graph = {
   target: '#graph-container',
   width:  window.innerWidth,
   height: window.innerHeight,
+  directed: true,
+  symmetricDiffLinkLengths: ['y', 50],
   data: undefined
 },
+
+visual = null,
 
 graphData = {
   nodes: [],
   links: []
 };
 
-function constructNode(id, r) {
+function constructNode(id, r, color) {
   /// creates nodes for the graph
+  color = color || '';
   var node = {};
   node.id = id;
   node.r = r;
+  node.fill = color;
   return node;
 }
 
@@ -27,8 +33,11 @@ function constructLink(source, target) {
 }
 
 function populateGraph(nodeArr) {
+  console.log('populating graph');
+  graphData.nodes = [];
+  graphData.links = [];
   /// creates nodes and links for the graph
-  graphData.nodes.push(constructNode($('#user-choice').val(), 15));
+  graphData.nodes.push(constructNode($('#user-choice').val(), 35, 'red'));
   var nodeNames = [];
   for (var i = 0; i < nodeArr.length; i++){
     if ($.inArray(nodeArr[i], nodeNames) === -1) {
