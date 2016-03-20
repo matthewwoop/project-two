@@ -27,6 +27,8 @@ window.onload = function () {
 
           visual = greuler(graph);       /// draw the graph
           visual.update();
+          //// fill in text nodes
+          d3.selectAll('.label')
         }
       });
     }
