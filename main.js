@@ -24,7 +24,9 @@ window.onload = function () {
           createWiki(response);        /// chop up response into pieces for wiki object
           console.log(wiki.result);
           populateGraph(wiki.nodes);   /// make nodes and edges for graph
-          visual = greuler(graph).update();       /// draw the graph
+
+          visual = greuler(graph);       /// draw the graph
+          visual.update();
         }
       });
     }
