@@ -4,11 +4,26 @@
   <meta charset="UTF-8">
   <title>Project 2</title>
   <link rel="stylesheet" href="style.css">
+  <link href='https://fonts.googleapis.com/css?family=Playfair+Display:700|Abel' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-  <input type="text" id="user-choice" placeholder="Search Wiki For" value="baseball">
-  <input type="button" id="submit-btn" value="Create WikiWeb">
+  <div id="header">
+    <h1>Wiki Web</h1>
+    <form id='user-input'>
+      <input type="text" id="user-choice" placeholder="Search Wiki For">
+      <br>
+      <input type="button" id="submit-btn" value="Create WikiWeb">
+    </form>
+    <p id="description">
+      Welcome to the Wiki Web
+      <br><br>
+      Here, one can explore the interconnectivity of any topic searchable on the MediaWiki API.
+      <br><br>
+      To begin, please input a search term above and click the search button. Once the graph has been populated, you can click on any node and continue exploring, or you can search another term above.
+    </p>
+  </div>
+
 
 
   <div id="graph-container"></div>

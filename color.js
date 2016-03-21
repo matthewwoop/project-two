@@ -19,3 +19,31 @@ function colorGraph() {
     // populateGraph(wiki.nodes, palette);
   });
 }
+
+function callWiki(choice) {
+  $('#graph-container').attr('greuler-id', '');   /// clear greuler-id so new graph can be generated
+  $('#graph-container').empty();    /// clear previous graph from container
+  $.ajax({
+    url: wiki.baseStart + choice + wiki.baseEnd,
+    dataType: 'jsonp',
+    success: function(response) {
+      console.log(response);
+      console.log('successfully requested', $('#user-choice').val());
+      if(!invalidSearch(response)) {
+        createWiki(response);        /// chop up response into pieces for wiki object
+        console.log(wiki.result);
+        populateGraph(wiki.nodes, palette);/// make nodes and edges for graph
+        visual = greuler(graph);       /// draw the graph
+        visual.update();
+      }
+    },
+    fail: function () {
+      console.log('failure');
+    }
+  }).done(function(response) {
+    //// fill in text nodes
+    console.log('done');
+    setTimeout(fillNucleus, 4500);
+    setTimeout(fillNodes, 5000);
+  });
+}

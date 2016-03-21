@@ -31,8 +31,9 @@ window.onload = function () {
       }).done(function(response) {
         //// fill in text nodes
         console.log('done');
-        setTimeout(fillNucleus, 3500);
-        setTimeout(fillNodes, 3750);
+
+        setTimeout(fillNucleus, 7000);
+        setTimeout(fillNodes, 8000);
       });
     }
   });
@@ -64,11 +65,11 @@ function getNodes(regExp, text) {
   /// turns regExp matches into nodes granted they're not ambiguous
   var links = text.match(regExp),
       nodes = [];
-  if (links){
-    for (var i=0; i < links.length; i++){
-      nodes[i] = links[i].slice(2).slice(0,-1);
+    if (links){
+      for (var i=0; i < links.length; i++){
+        nodes[i] = links[i].slice(2).slice(0,-1);
+      }
     }
-  }
   return nodes;
 }
 function getNodesParens(regExp, text) {
