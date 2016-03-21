@@ -15,21 +15,21 @@ window.onload = function () {
         success: function(response) {
           console.log(response);
           console.log('successfully requested', $('#user-choice').val());
+          if(!invalidSearch(response)) {
+            createWiki(response);        /// chop up response into pieces for wiki object
+            console.log(wiki.result);
+            populateGraph(wiki.nodes);   /// make nodes and edges for graph
+            visual = greuler(graph);       /// draw the graph
+            visual.update();
+          }
         },
         fail: function () {
           console.log('failure');
         }
       }).done(function(response) {
-        if(!invalidSearch(response)) {
-          createWiki(response);        /// chop up response into pieces for wiki object
-          console.log(wiki.result);
-          populateGraph(wiki.nodes);   /// make nodes and edges for graph
-
-          visual = greuler(graph);       /// draw the graph
-          visual.update();
-          //// fill in text nodes
-          d3.selectAll('.label')
-        }
+        //// fill in text nodes
+        console.log('done');
+        setTimeout(fillNodes, 2000);
       });
     }
   });
