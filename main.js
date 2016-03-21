@@ -1,6 +1,8 @@
 window.onload = function () {
   console.log('main.js has loaded...');
 
+  colorGraph();
+
   $('#submit-btn').on('click', function(e) {
     var choice = $('#user-choice').val().replace(' ', '_');  /// convert 2+ word search queries
     console.log(choice);
@@ -18,7 +20,7 @@ window.onload = function () {
           if(!invalidSearch(response)) {
             createWiki(response);        /// chop up response into pieces for wiki object
             console.log(wiki.result);
-            populateGraph(wiki.nodes);   /// make nodes and edges for graph
+            populateGraph(wiki.nodes, palette);/// make nodes and edges for graph
             visual = greuler(graph);       /// draw the graph
             visual.update();
           }
@@ -29,7 +31,8 @@ window.onload = function () {
       }).done(function(response) {
         //// fill in text nodes
         console.log('done');
-        setTimeout(fillNodes, 2000);
+        setTimeout(fillNucleus, 3500);
+        setTimeout(fillNodes, 3750);
       });
     }
   });

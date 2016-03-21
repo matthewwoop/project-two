@@ -5,9 +5,10 @@ var graph = {
   directed: true,
   data: undefined
 },
-
 visual = null,
-
+palette,
+colorEndpoint=  'http://www.colourlovers.com/api/palettes/random?format=json&jsonCallback=callback',
+dy = [0, 0, -0.25, -1, -1.5, -2, -3, -3.25, -3.5, -3.75, -4],
 graphData = {
   nodes: [],
   links: [],
@@ -33,36 +34,42 @@ function constructLink(source, target) {
   return link;
 }
 function getRad(word) {
-  var splitWord = word.split(' '), longest;
-  if (splitWord.length > 1) {
-    longest = splitWord.sort(function (a, b) { return b.length - a.length; })[0];
+  var splitWord = word.split(' '),
+  longest = splitWord.sort(function (a, b) { return b.length - a.length; })[0];
+  if (splitWord.length > 5) {
+    return 6*longest.length;
+  } else if (splitWord.length > 1) {
+    return 6*longest.length;
   } else {
-    longest = splitWord[0];
+    return 5*longest.length;
   }
-  return 5.25*longest.length;
 }
 
-function populateGraph(nodeArr) {
-  console.log('populating graph');
+function populateGraph(nodeArr, palette) {
+
   graphData.nodes = [], graphData.links = [];   /// clear old graph
   /// creates nodes and links for the graph
   graphData.nodes.push(constructNode(0, '', getRad($('#user-choice').val()), 'red'));
   // create nucleus
-  var nodeNames = [];
-  for (var i = 0; i < 10; i++){
+  var nodeNames = [], numNodes, color;
+  numNodes = nodeArr.length < 15 ? numNodes = nodeArr.length : numNodes = 15;
+  for (var i = 0; i < numNodes; i++){
     if ($.inArray(nodeArr[i], nodeNames) === -1) {
+      color = palette[Math.floor(Math.random()*palette.length)];
       nodeNames.push(nodeArr[i]);
-      graphData.nodes.push(constructNode(i+1, '', getRad(nodeArr[i])));
+      graphData.nodes.push(constructNode(i+1, '', getRad(nodeArr[i]), '#'+color));
       graphData.links.push(constructLink(0, i+1));
     } else {
-      console.log(nodeArr[i], 'is a repeat');
+      color = palette[Math.floor(Math.random()*palette.length)];
       nodeArr.splice(i, 1);
+      nodeNames.push(nodeArr[i]);
+      graphData.nodes.push(constructNode(i+1, '', getRad(nodeArr[i]), '#'+color));
+      graphData.links.push(constructLink(0, i+1));
     }
   }
   graph.data = graphData;
 }
 
-var dy = [0, 0, -0.25, -1, -1.5, -2, -3];
 
 function fillNodes() {
   var nodes = d3.selectAll('text.label')[0];
@@ -74,7 +81,20 @@ function fillNodes() {
         .attr("dy", j === 0 ? dy[splitWord.length]+'em' : '1em') // 1 word: 0, 2 word: .25em, 3: -1em, 5: -2em
         .attr("x", 0)
         .attr("text-anchor", "middle")
+        .attr('fill', setTextColor(graphData.nodes[i].fill.replace('#','')))
         .attr("class", "tspan" + i);
     }
+  }
+}
+function fillNucleus() {
+  var nucleus = d3.selectAll('text.label')[0];
+  var splitNucleus = $('#user-choice').val().split(' ');
+  for(var j = 0; j < splitNucleus.length; j++){
+    d3.select('#greuler-0 text').append("tspan")
+    .text(splitNucleus[j])
+    .attr("dy", j === 0 ? dy[splitNucleus.length]+'em' : '1em') // 1 word: 0, 2 word: .25em, 3: -1em, 5: -2em
+    .attr("x", 0)
+    .attr("text-anchor", "middle")
+    .attr("class", "tspan" + 0);
   }
 }
