@@ -23,6 +23,7 @@ window.onload = function () {
             populateGraph(wiki.nodes, palette);/// make nodes and edges for graph
             visual = greuler(graph);       /// draw the graph
             visual.update();
+            console.log('graph drawn');
           }
         },
         fail: function () {
@@ -31,9 +32,10 @@ window.onload = function () {
       }).done(function(response) {
         //// fill in text nodes
         console.log('done');
-
-        setTimeout(fillNucleus, 7000);
-        setTimeout(fillNodes, 8000);
+        // setTimeout(fillNucleus, 0);
+        // setTimeout(fillNodes, 0);
+        setTimeout(fillNucleus, 1000);
+        setTimeout(fillNodes, 1000);
       });
     }
   });

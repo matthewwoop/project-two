@@ -35,6 +35,7 @@ function constructLink(source, target) {
   return link;
 }
 function getRad(word) {
+  console.log(word);
   var splitWord = word.split(' '),
   longest = splitWord.sort(function (a, b) { return b.length - a.length; })[0];
   if (splitWord.length > 5) {
@@ -58,18 +59,11 @@ function populateGraph(nodeArr, palette) {
   numNodes = nodeArr.length < 15 ? numNodes = nodeArr.length : numNodes = 15;
   for (var i = 0; i < numNodes; i++){
     if ($.inArray(nodeArr[i], nodeNames) === -1 && nodeArr[i]!== '') {
+      console.log('i:', i);
       color = palette[Math.floor(Math.random()*palette.length)];
       nodeNames.push(nodeArr[i]);
       graphData.nodes.push(constructNode(i+1, '', getRad(nodeArr[i]), '#'+color));
       graphData.links.push(constructLink(0, i+1));
-    } else {
-      console.log('repeat with', nodeArr[i]);
-      color = palette[Math.floor(Math.random()*palette.length)];
-      nodeArr.splice(i, 1);
-      i -= 1;
-      // nodeNames.push(nodeArr[i]);
-      // graphData.nodes.push(constructNode(i+1, '', getRad(nodeArr[i]), '#'+color));
-      // graphData.links.push(constructLink(0, i+1));
     }
   }
   graph.data = graphData;
@@ -78,6 +72,7 @@ function populateGraph(nodeArr, palette) {
 
 function fillNodes() {
   var nodes = d3.selectAll('text.label')[0];
+  console.log(nodes);
   for (var i = 1; i < nodes.length; i++) {
      var splitWord = wiki.nodes[i-1].split(' ');
      for(var j = 0; j < splitWord.length; j++){
@@ -89,12 +84,14 @@ function fillNodes() {
         .attr('fill', setTextColor(graphData.nodes[i].fill.replace('#','')))
         .attr("class", "tspan" + i);
     }
-    $('#greuler-'+(i)).on('mousedown',function(e){
+    (function(i){
+      $('#greuler-'+(i)).on('mousedown',function(e){
       console.log(e);
       clicked = wiki.nodes[e.currentTarget.__data__.id - 1];
       // console.log(e.currentTarget.id);
       callWiki(wiki.nodes[e.currentTarget.__data__.id - 1].replace(/\s/g, '_'));
-    });
+      });
+    })(i);
   }
 }
 function fillNucleus() {
