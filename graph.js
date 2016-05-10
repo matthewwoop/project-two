@@ -13,7 +13,7 @@ dy = [0, 0, -0.25, -1, -1.5, -2, -3, -3.25, -3.5, -3.75, -4],
 graphData = {
   nodes: [],
   links: [],
-  linkDistance: 100
+  linkDistance: 125
 };
 
 function constructNode(id, label,  r, color) {
