@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/matthewwoop/project-two#readme",
   "dependencies": {
+    "cola": "^0.1.7",
     "express": "^4.13.4"
   }
 }

@@ -5,8 +5,6 @@ ORIGINAL PROJECT TWO CODE
 */
 window.onload = function () {
 
-  //colorGraph();
-
   $('#submit-btn').on('click', function(e) {
     var choice = $('#user-choice').val().replace(' ', '_');  /// convert 2+ word search queries
     // visual is a previous graph
