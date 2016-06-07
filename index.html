@@ -1,37 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Project 2</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
   <link href='https://fonts.googleapis.com/css?family=Playfair+Display:700|Abel' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-  <div id="header">
-    <h1>Wiki Web</h1>
-    <form id='user-input'>
-      <input type="text" id="user-choice" placeholder="Search Wiki For" value="JavaScript">
-      <br>
-      <input type="button" id="submit-btn" value="Create WikiWeb">
-    </form>
-    <p id="description">
-      Welcome to the Wiki Web
-      <br><br>
-      Here, one can explore the interconnectivity of any topic searchable on the MediaWiki API.
-      <br><br>
-      To begin, please input a search term above and click the search button. Once the graph has been populated, you can click on any node and continue exploring, or you can search another term above.
-    </p>
+  <div class="container">
+    <div class='row'>
+      <div id="header" class='col-xs-offset-2 col-xs-8'>
+        <h2>Welcome to the Wiki Web</h2>
+        <h3 id="description">
+          <br>
+          Here, one can explore the interconnectivity of any topic searchable on the MediaWiki API.
+          <br><br>
+          To begin, please input a search term above and click the search button. Once the graph has been populated, you can click on any node and continue exploring, or you can search another term above.
+        </h3>
+        <form id='user-input'>
+          <div class="input-group">
+            <input id="user-choice"
+            type="text" class="form-control" placeholder="Search Wiki For...">
+          </div>
+          <br>
+          <button id='submit-btn' type="button" class="btn btn-default">Create WikiWeb</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div id="graph-container" class='col-xs-offset-1 scol-xs-10'></div>
+    </div>
   </div>
 
 
 
-  <div id="graph-container"></div>
-
-
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js" charset="utf-8"></script> -->
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.js"></script>
   <script src="http://marvl.infotech.monash.edu/webcola/cola.v3.min.js"></script>
   <script src="bower_components/greuler/dist/greuler.js"></script>

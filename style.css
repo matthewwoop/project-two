@@ -1,3 +1,4 @@
+/*
 * {
   margin: 0;
   padding: 0;
@@ -16,7 +17,7 @@ input {
   margin: 3px 0;
 }
 
-h1 {
+h2 {
   font-family: 'Playfair Display', serif;
   position: relative;
   top: 3%;
@@ -35,7 +36,7 @@ p {
   height: 100%;
   text-align: center;
   font-family: 'Raleway', sans-serif;
-  float: left;
+  float: right;
   border-right: 2px solid black;
   padding: 20px;
   margin: auto 0;
@@ -43,6 +44,36 @@ p {
 
 #graph-container {
   position: absolute;
-  left: 35%;
-  float: left;
+  float: right;
+  width: -80%;
+}
+*/
+
+body {
+}
+
+* {
+  text-align: center;
+}
+
+#graph-container {
+  height: 60vh;
+}
+
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5em;
+}
+
+h3 {
+  font-family: 'Abel', sans-serif;
+  font-size: 1.5em;
+}
+
+.input-group {
+  margin: 0 auto;
+}
+
+#user-choice {
 }

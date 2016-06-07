@@ -1,7 +1,7 @@
 var graph = {
   target: '#graph-container',
-  width:  window.innerHeight,
-  height: window.innerHeight,
+  width:  .7*window.innerWidth,
+  height: .7*window.innerHeight,
   directed: true,
   data: undefined
 },
@@ -35,7 +35,6 @@ function constructLink(source, target) {
   return link;
 }
 function getRad(word) {
-  console.log(word);
   var splitWord = word.split(' '),
   longest = splitWord.sort(function (a, b) { return b.length - a.length; })[0];
   if (splitWord.length > 5) {
@@ -53,13 +52,12 @@ function populateGraph(nodeArr, palette) {
 
   graphData.nodes = [], graphData.links = [];   /// clear old graph
   /// creates nodes and links for the graph
-  graphData.nodes.push(constructNode(0, '', getRad($('#user-choice').val()||clicked), 'red'));
+  graphData.nodes.push(constructNode(0, '', getRad($('#user-choice').val()||clicked), '#73D3FF'));
   // create nucleus
   var nodeNames = [], numNodes, color;
   numNodes = nodeArr.length < 15 ? numNodes = nodeArr.length : numNodes = 15;
   for (var i = 0; i < numNodes; i++){
     if ($.inArray(nodeArr[i], nodeNames) === -1 && nodeArr[i]!== '') {
-      console.log('i:', i);
       color = palette[Math.floor(Math.random()*palette.length)];
       nodeNames.push(nodeArr[i]);
       graphData.nodes.push(constructNode(i+1, '', getRad(nodeArr[i]), '#'+color));
@@ -72,7 +70,6 @@ function populateGraph(nodeArr, palette) {
 
 function fillNodes() {
   var nodes = d3.selectAll('text.label')[0];
-  console.log(nodes);
   for (var i = 1; i < nodes.length; i++) {
      var splitWord = wiki.nodes[i-1].split(' ');
      for(var j = 0; j < splitWord.length; j++){
@@ -86,9 +83,7 @@ function fillNodes() {
     }
     (function(i){
       $('#greuler-'+(i)).on('mousedown',function(e){
-      console.log(e);
       clicked = wiki.nodes[e.currentTarget.__data__.id - 1];
-      // console.log(e.currentTarget.id);
       callWiki(wiki.nodes[e.currentTarget.__data__.id - 1].replace(/\s/g, '_'));
       });
     })(i);
@@ -98,7 +93,6 @@ function fillNucleus() {
   var nucleus = d3.selectAll('text.label')[0];
   var whichTitle = $('#user-choice').val() || clicked;
   var splitNucleus = whichTitle.split(' ');
-  console.log('nucleus title: ', splitNucleus);
   for(var j = 0; j < splitNucleus.length; j++){
     d3.select('#greuler-0 text').append("tspan")
     .text(splitNucleus[j])
